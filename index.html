@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>hello word</h1>
+
+    <form action="">
+      <label for="email-input">email</label>
+      <input type="email" name="email" id="email-input" />
+      <br />
+      <label for="password-input">password</label>
+      <input type="password" name="password" id="password-input" />
+      <br />
+      <button id="login-btn" type="button">register</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      // ============== token + authentication + localstorage token
+
+      //   axios
+      //     .post("https://reqres.in/api/login", {
+      //       email: "eve.holt@reqres.in",
+      //       password: "cityslicka",
+      //     })
+      //     .then(function (response) {
+      //       let token = response.data.token;
+      //       localStorage.setItem("token", token);
+      //       console.log("token received", token);
+      //       createUser();
+      //     });
+
+      //   function createUser() {
+      //     let token = localStorage.getItem("token");
+      //     let config = {
+      //       headers: {
+      //         Authorization: `Bearer ${token}`,
+      //       },
+      //     };
+
+      //     axios
+      //       .post(
+      //         "https://reqres.in/api/users",
+      //         {
+      //           name: "hamid",
+      //           job: "devloper",
+      //         },
+      //         config
+      //       )
+      //       .then(function (response) {
+      //         console.log(response);
+      //       });
+      //   }
+      //   ============== login form in server
+      document
+        .getElementById("login-btn")
+        .addEventListener("click", function () {
+            let email = document.getElementById('email-input').value
+            let password = document.getElementById('password-input').value
+          axios
+            .post("https://reqres.in/api/login", { 
+              email: email,
+              password: password,
+            })
+            .then(function (response) {
+              let token = response.data.token;
+              localStorage.setItem("token", token);
+              console.log("token received", token);
+              window.location = 'welcome.html'
+            })
+            .catch((error) => {
+              console.log('error ==> ',error);
+              alert(error.response.data.error)
+            });
+        });
+    </script>
+  </body>
+</html>
